@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script defer src="lib/peerjs/peerjs.min.js"></script>
+    <script defer src="index.js"></script>
+</head>
+
+<body>
+    <div>
+        <input type="text" name="local-peer-id" id="local-peer-id" readonly>
+        <br>
+        <input type="text" name="remote-peer-id" id="remote-peer-id">
+        <button id="call-button">Call</button>
+    </div>
+
+    <div>
+        <video id="local-video"></video>
+        <video id="remote-video"></video>
+    </div>
+</body>
+
+</html>
