@@ -3,6 +3,9 @@ const remotePeerIdInput = document.getElementById("remote-peer-id");
 
 const callButton = document.getElementById("call-button");
 
+const microphoneToggleButton = document.getElementById("microphone-toggle");
+const videoToggleButton = document.getElementById("video-toggle");
+
 const localVideo = document.getElementById("local-video");
 const remoteVideo = document.getElementById("remote-video");
 
@@ -15,16 +18,6 @@ let localStream;
 
 var peer = new Peer();
 
-const onCallButton = () => {
-    const remotePeerId = remotePeerIdInput.value;
-    const call = peer.call(remotePeerId, localStream);
-    call.on("stream", stream => {
-        remoteVideo.srcObject = stream;
-        remoteVideo.onloadedmetadata = () => {
-            remoteVideo.play();
-        }
-    });
-}
 
 peer.on("open", id => {
     localPeerIdInput.value = id;
@@ -37,6 +30,34 @@ peer.on("call", call => {
         remoteVideo.onloadedmetadata = () => {
             remoteVideo.play();
         }
+    });
+});
+
+
+callButton.addEventListener("click", () => {
+    const remotePeerId = remotePeerIdInput.value;
+    const call = peer.call(remotePeerId, localStream);
+    call.on("stream", stream => {
+        remoteVideo.srcObject = stream;
+        remoteVideo.onloadedmetadata = () => {
+            remoteVideo.play();
+        }
+    });
+});
+
+microphoneToggleButton.addEventListener("click", () => {
+    const audioTracks = localStream.getAudioTracks();
+    audioTracks.forEach(track => {
+        track.enabled = !track.enabled;
+        microphoneToggleButton.innerText = track.enabled ? "Mute" : "Unmute";
+    });
+});
+
+videoToggleButton.addEventListener("click", () => {
+    const videoTracks = localStream.getVideoTracks();
+    videoTracks.forEach(track => {
+        track.enabled = !track.enabled;
+        videoToggleButton.innerText = track.enabled ? "Disable Camera" : "Enable Camera";
     });
 });
 
@@ -56,8 +77,6 @@ const main = () => {
         .catch(err => {
             console.log(err);
         });
-
-    callButton.addEventListener("click", onCallButton);
 }
 
 main();
