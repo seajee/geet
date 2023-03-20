@@ -9,6 +9,10 @@ const videoToggleButton = document.getElementById("video-toggle");
 const localVideo = document.getElementById("local-video");
 const remoteVideo = document.getElementById("remote-video");
 
+const chatText = document.getElementById("chat");
+const chatForm = document.getElementById("chat-form");
+const chatInput = document.getElementById("chat-input");
+
 const constraints = {
     video: "true",
     audio: "true"
@@ -16,7 +20,8 @@ const constraints = {
 
 let localStream;
 
-var peer = new Peer();
+let peer = new Peer();
+let connection;
 
 
 peer.on("open", id => {
@@ -33,9 +38,17 @@ peer.on("call", call => {
     });
 });
 
+peer.on("connection", conn => {
+    connection = conn;
+    connection.on("data", data => {
+        chatText.value += `Peer: ${data}\n`;
+    });
+});
+
 
 callButton.addEventListener("click", () => {
     const remotePeerId = remotePeerIdInput.value;
+    connection = peer.connect(remotePeerId);
     const call = peer.call(remotePeerId, localStream);
     call.on("stream", stream => {
         remoteVideo.srcObject = stream;
@@ -59,6 +72,20 @@ videoToggleButton.addEventListener("click", () => {
         track.enabled = !track.enabled;
         videoToggleButton.innerText = track.enabled ? "Disable Camera" : "Enable Camera";
     });
+});
+
+chatForm.addEventListener("submit", event => {
+    event.preventDefault();
+
+    if (!connection) {
+        return;
+    }
+
+    const message = chatInput.value;
+    connection.send(message);
+
+    chatText.value += `You: ${message}\n`;
+    chatInput.value = "";
 });
 
 
