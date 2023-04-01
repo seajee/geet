@@ -4,7 +4,9 @@ const remotePeerIdInput = document.getElementById("remote-peer-id");
 const callButton = document.getElementById("call-button");
 
 const microphoneToggleButton = document.getElementById("microphone-toggle");
+const microphoneToggleImage = document.getElementById("microphone-toggle-image");
 const videoToggleButton = document.getElementById("video-toggle");
+const videoToggleImage = document.getElementById("video-toggle-image");
 
 const localVideo = document.getElementById("local-video");
 const remoteVideo = document.getElementById("remote-video");
@@ -73,7 +75,7 @@ microphoneToggleButton.addEventListener("click", () => {
     const audioTracks = localStream.getAudioTracks();
     audioTracks.forEach(track => {
         track.enabled = !track.enabled;
-        microphoneToggleButton.innerText = track.enabled ? "Mute" : "Unmute";
+        microphoneToggleImage.src = track.enabled ? "assets/mic_on.svg" : "assets/mic_off.svg";
     });
 });
 
@@ -81,7 +83,7 @@ videoToggleButton.addEventListener("click", () => {
     const videoTracks = localStream.getVideoTracks();
     videoTracks.forEach(track => {
         track.enabled = !track.enabled;
-        videoToggleButton.innerText = track.enabled ? "Disable Camera" : "Enable Camera";
+        videoToggleImage.src = track.enabled ? "assets/video_on.svg" : "assets/video_off.svg";
     });
 });
 

@@ -3,6 +3,11 @@ video {
     height: auto;
 }
 
+img {
+    width: 12%;
+    height: auto;
+}
+
 
 .app-container {
     width: 100vw;
