@@ -5,34 +5,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Geet</title>
+    <link rel="stylesheet" href="style.css">
     <script defer src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
     <script defer src="index.js"></script>
 </head>
 
 <body>
+    <div class="app-container">
+        <div class="video-container">
+            <video id="local-video"></video>
+            <video id="remote-video"></video>
+        </div>
+
+        <div>
+            <textarea id="chat" readonly></textarea>
+        </div>
+
+        <div id="controls">
+            <button id="microphone-toggle">Mute</button>
+            <button id="video-toggle">Disable Camera</button>
+        </div>
+
+        <div id="chat-form">
+            <textarea id="chat-input"></textarea>
+            <button id="chat-input-send">Send</button>
+        </div>
+    </div>
+
     <div>
         <input type="text" name="local-peer-id" id="local-peer-id" readonly>
-        <br>
         <input type="text" name="remote-peer-id" id="remote-peer-id">
         <button id="call-button">Call</button>
-    </div>
-
-    <div>
-        <button id="microphone-toggle">Mute</button>
-        <button id="video-toggle">Disable Camera</button>
-    </div>
-
-    <div>
-        <textarea id="chat" readonly></textarea>
-        <form id="chat-form">
-            <input type="text" id="chat-input">
-            <button type="submit">Send</button>
-        </form>
-    </div>
-
-    <div>
-        <video id="local-video"></video>
-        <video id="remote-video"></video>
     </div>
 </body>
 

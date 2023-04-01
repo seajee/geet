@@ -10,8 +10,8 @@ const localVideo = document.getElementById("local-video");
 const remoteVideo = document.getElementById("remote-video");
 
 const chatText = document.getElementById("chat");
-const chatForm = document.getElementById("chat-form");
 const chatInput = document.getElementById("chat-input");
+const chatInputSend = document.getElementById("chat-input-send");
 
 const constraints = {
     video: "true",
@@ -85,9 +85,7 @@ videoToggleButton.addEventListener("click", () => {
     });
 });
 
-chatForm.addEventListener("submit", event => {
-    event.preventDefault();
-
+chatInputSend.addEventListener("click", () => {
     if (!connection) {
         return;
     }
