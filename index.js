@@ -1,9 +1,3 @@
-/*
-* TODO:
-* - Fix chat working one way only by initiating a data connection
-*   and exchange peer ids with another peer object before the video/audio streams
-*/
-
 const localPeerIdInput = document.getElementById("local-peer-id");
 const remotePeerIdInput = document.getElementById("remote-peer-id");
 
@@ -60,7 +54,12 @@ peer.on("connection", conn => {
 
 callButton.addEventListener("click", () => {
     const remotePeerId = remotePeerIdInput.value;
+
     connection = peer.connect(remotePeerId);
+    connection.on("data", data => {
+        chatText.value += `Peer: ${data}\n`;
+    });
+
     const call = peer.call(remotePeerId, localStream);
     call.on("stream", stream => {
         remoteVideo.srcObject = stream;
