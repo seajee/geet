@@ -25,7 +25,7 @@ let localStream;
 let peer = new Peer({
     config: {
         "iceServers": [
-            { url: "stun:stun.l.google.com:19302" }
+            { urls: "stun:stun.l.google.com:19302" }
         ]
     }
 });
