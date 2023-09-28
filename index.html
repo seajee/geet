@@ -11,6 +11,12 @@
 </head>
 
 <body>
+    <div>
+        <input type="text" name="local-peer-id" id="local-peer-id" readonly>
+        <input type="text" name="remote-peer-id" id="remote-peer-id">
+        <button id="call-button"><img src="assets/call.svg" alt="Call"></button>
+    </div>
+
     <div class="app-container">
         <div class="video-container">
             <video id="local-video"></video>
@@ -30,12 +36,6 @@
             <textarea id="chat-input"></textarea>
             <button id="chat-input-send"><img src="assets/send.svg" alt="Send"></button>
         </div>
-    </div>
-
-    <div>
-        <input type="text" name="local-peer-id" id="local-peer-id" readonly>
-        <input type="text" name="remote-peer-id" id="remote-peer-id">
-        <button id="call-button"><img src="assets/call.svg" alt="Call"></button>
     </div>
 </body>
 
