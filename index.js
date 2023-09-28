@@ -20,12 +20,26 @@ const constraints = {
     audio: "true"
 }
 
+const fallbackConstraints = {
+    audio: "true"
+}
+
 let localStream;
 
 let peer = new Peer({
     config: {
         "iceServers": [
-            { urls: "stun:stun.l.google.com:19302" }
+            { urls: "stun:stun.l.google.com:19302" },
+/*
+            {
+                urls: [
+                    "turn:eu-0.turn.peerjs.com:3478",
+                    "turn:us-0.turn.peerjs.com:3478"
+                ],
+                username: "peerjs",
+                credential: "peerjsp"
+            }
+*/
         ]
     }
 });
@@ -114,6 +128,16 @@ const main = () => {
         })
         .catch(err => {
             console.log(err);
+            console.log("no video");
+
+            navigator.mediaDevices.getUserMedia(fallbackConstraints)
+                .then(stream => {
+                    localStream = stream;
+                })
+                .catch(err => {
+                    console.log(err);
+                    console.log("no mic");
+                });
         });
 }
 
